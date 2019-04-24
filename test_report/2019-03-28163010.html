@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>自动化测试报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+<style type="text/css" media="screen">
+body        { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px; font-size: 80%; }
+table       { font-size: 100%; }
+
+/* -- heading ---------------------------------------------------------------------- */
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+
+/* -- report ------------------------------------------------------------------------ */
+#total_row  { font-weight: bold; }
+.passCase   { color: #5cb85c; }
+.failCase   { color: #d9534f; font-weight: bold; }
+.errorCase  { color: #f0ad4e; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+</style>
+
+</head>
+<body >
+<script language="javascript" type="text/javascript">
+output_list = Array();
+
+/*level 调整增加只显示通过用例的分类 --Findyou
+0:Summary //all hiddenRow
+1:Failed  //pt hiddenRow, ft none
+2:Pass    //pt none, ft hiddenRow
+3:All     //pt none, ft none
+*/
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level == 2 || level == 0 ) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level < 2) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+    }
+
+    //加入【详细】切换文字变化 --Findyou
+    detail_class=document.getElementsByClassName('detail');
+	//console.log(detail_class.length)
+	if (level == 3) {
+		for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="收起"
+		}
+	}
+	else{
+			for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="详细"
+		}
+	}
+}
+
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        //ID修改 点 为 下划线 -Findyou
+        tid0 = 't' + cid.substr(1) + '_' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        //修改点击无法收起的BUG，加入【详细】切换文字变化 --Findyou
+        if (toHide) {
+            document.getElementById(tid).className = 'hiddenRow';
+            document.getElementById(cid).innerText = "详细"
+        }
+        else {
+            document.getElementById(tid).className = '';
+            document.getElementById(cid).innerText = "收起"
+        }
+    }
+}
+
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+</script>
+<div class='heading'>
+<h1 style="font-family: Microsoft YaHei">自动化测试报告</h1>
+<p class='attribute'><strong>测试人员 : </strong> Joker</p>
+<p class='attribute'><strong>开始时间 : </strong> 2019-03-28 16:30:10</p>
+<p class='attribute'><strong>合计耗时 : </strong> 0:00:16.385154</p>
+<p class='attribute'><strong>测试结果 : </strong> 共 4，通过 3，失败 1，通过率= 75.00%</p>
+
+<p class='description'>用例执行情况</p>
+</div>
+
+
+
+<p id='show_detail_line'>
+<a class="btn btn-primary" href='javascript:showCase(0)'>概要:75.00%</a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>失败:1 </a>
+<a class="btn btn-success" href='javascript:showCase(2)'>通过:3 </a>
+<a class="btn btn-info" href='javascript:showCase(3)'>所有:4 </a>
+</p>
+<table id='result_table' class="table table-condensed table-bordered table-hover">
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+    <td>用例集/测试用例</td>
+    <td>总计</td>
+    <td>通过</td>
+    <td>失败</td>
+    <td>错误</td>
+    <td>详细</td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>test_case.MyTestCase</td>
+    <td class="text-center">4</td>
+    <td class="text-center">3</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',4)" class="detail" id='c1'>详细</a></td>
+</tr>
+
+<tr id='ft1_1' class='none'>
+    <td class='failCase'><div class='testcase'>test_api_1</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_1'>失败</button>
+    <div id='div_ft1_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_1' type="button"  class="btn btn-xs" data-toggle="collapse" data-target='#div_ft1_1'>失败</button>
+    <div id='div_ft1_1' class="collapse">
+    <pre>
+    
+ft1_1: 执行第1条用例:登录接口模块
+请求地址:http://meiye-gray-api.lvshou.me:7773/post/login
+请求参数:{'username':'13119656020','password':'lv12456'}
+返回数据:{'status': 506, 'message': '账号或密码错误', 'data': None}
+Traceback (most recent call last):
+  File "C:\Users\junjie\AppData\Local\Programs\Python\Python37\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\junjie\Desktop\Meiye-jiekou-V1.0\test_case\test_case.py", line 35, in test_api
+    raise e
+  File "C:\Users\junjie\Desktop\Meiye-jiekou-V1.0\test_case\test_case.py", line 24, in test_api
+    self.assertEqual(sub_data['code'], http_data['status'])
+AssertionError: 200 != 506
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_api_2</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_2'>通过</button>
+    <div id='div_pt1_2' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_2' type="button"  class="btn btn-xs" data-toggle="collapse" data-target='#div_pt1_2'>通过</button>
+    <div id='div_pt1_2' class="collapse">
+    <pre>
+    
+pt1_2: 执行第2条用例:登录接口模块
+请求地址:http://meiye-gray-api.lvshou.me:7773/post/getInfo
+请求参数:{'token':'a7f58c47-92ca-4d3a-904c-8e08a36afef5'}
+返回数据:{'status': 200, 'message': 'OK', 'data': {'systemUserVO': {'id': '75ac1fd4f7cc427382e91e225f6681e1', 'gmtCreate': '2019-01-23 16:45:48', 'gmtModified': '2019-02-26 09:49:48', 'isDeleted': 0, 'isValid': 1, 'shopId': 'd90c7afd096e473e92bc3342bb6be43f', 'userCreate': '453a21c19e6543478dabc90342507037', 'userModified': '75ac1fd4f7cc427382e91e225f6681e1', 'roleId': None, 'roleName': None, 'userName': '测试1', 'userNumber': 1, 'userPhone': '13119656020', 'userRemark': '', 'isAdmin': 1}, 'systemShopVO': {'id': 'd90c7afd096e473e92bc3342bb6be43f', 'gmtCreate': '2019-01-23 16:45:48', 'gmtModified': '2019-02-26 13:57:12', 'isDeleted': 0, 'isValid': 1, 'isHeadquarters': 0, 'userShopId': 'd90c7afd096e473e92bc3342bb6be43f', 'shopUserCreate': '453a21c19e6543478dabc90342507037', 'shopUserModified': '75ac1fd4f7cc427382e91e225f6681e1', 'shopName': '广州荔湾', 'shopKeyname': '纤体', 'shopNumber': 3, 'userId': '75ac1fd4f7cc427382e91e225f6681e1', 'userName': '测试1', 'userPhone': '13119656020', 'shopProvince': '6', 'areaName': '广东省', 'shopAddress': '花地大道南', 'shopAchievementRule': 1, 'showShopNumber': '纤体-003'}, 'systemRoleVO': {'id': '3957b652a6214c0093f03826ee842e06', 'gmtCreate': '2019-01-23 16:45:48', 'gmtModified': '2019-01-24 17:32:38', 'isAllowUpdate': 0, 'isDeleted': 0, 'roleName': '默认权限', 'roleRemark': '', 'shopId': 'd90c7afd096e473e92bc3342bb6be43f', 'userCreate': '453a21c19e6543478dabc90342507037', 'userModified': '75ac1fd4f7cc427382e91e225f6681e1'}, 'isResetPassword': False, 'systemMenus': [{'id': '1', 'gmtCreate': '2018-09-06 14:22:51', 'gmtModified': '2018-09-06 14:22:51', 'isDefaultMenu': 1, 'isHeadquartersRead': 0, 'menuImageUrl': '', 'menuName': '顶级', 'menuNavigateUrl': '/layout', 'menuRemark': '', 'menuSort': 1, 'parentId': '', 'userCreate': None, 'userModified': '1234', 'childrens': [{'id': '4f6a9b0baa754e2fbf2e365da907a3c5', 'gmtCreate': '2018-09-26 10:40:56', 'gmtModified': '2018-11-01 10:32:58', 'isDefaultMenu': 0, 'isHeadquartersRead': 0, 'menuImageUrl': 'icon_xitongcanshu.png', 'menuName': '系统参数', 'menuNavigateUrl': '/loyout7', 'menuRemark': '', 'menuSort': 33, 'parentId': '1', 'userCreate': '453a21c19e6543478dabc90342507037', 'userModified': '23dbf529-225d-4af8-9687-40a55962a78a', 'childrens': [{'id': '5862853ea02e4d60afce9bf9fbd1238c', 'gmtCreate': '2019-01-18 16:25:32', 'gmtModified': '2019-01-18 16:25:32', 'isDefaultMenu': 0, 'isHeadquartersRead': 0, 'menuImageUrl': '13', 'menuName': '小票设置', 'menuNavigateUrl': '/layout/systemParams/receipt', 'menuRemark': '', 'menuSort': 13, 'parentId': '4f6a9b0baa754e2fbf2e365da907a3c5', 'userCreate': '23dbf529-225d-4af8-9687-40a55962a78a', 'userModified': '23dbf529-225d-4af8-9687-40a55962a78a', 'childrens': None}, {'id': '536c2ab672da443ab5927de4042f5ca1', 'gmtCreate': '2018-09-26 10:41:58', 'gmtModified': '2018-10-18 15:28:19', 'isDefaultMenu': 0, 'isHeadquartersRead': 0, 'menuImageUrl': '', 'menuName': '收银设置', 'menuNavigateUrl': '/layout/systemParams/cashier', 'menuRemark': '', 'menuSort': 11, 'parentId': '4f6a9b0baa754e2fbf2e365da907a3c5', 'userCreate': '453a21c19e6543478dabc90342507037', 'userModified': '453a21c19e6543478dabc90342507037', 'childrens': None}, {'id': 'a4f48388efa642f2814127a55346d198', 'gmtCreate': '2018-09-26 10:47:19', 'gmtModified': '2018-10-18 15:28:24', 'isDefaultMenu': 0, 'isHeadquartersRead': 0, 'menuImageUrl': '1', 'menuName': '积分设置', 'menuNavigateUrl': '/layout/systemParams/integral', 'menuRemark': '', 'menuSort': 3, 'parentId': '4f6a9b0baa754e2fbf2e365da907a3c5', 'userCreate': '453a21c19e6543478dabc90342507037', 'userModified': '453a21c19e6543478dabc90342507037', 'childrens': None}]}, {'id': 'd818fa081e714d39a0b78b78b98a7f07', 'gmtCreate': '2018-09-20 15:55:18', 'gmtModified': '2018-11-01 10:32:35', 'isDefaultMenu': 1, 'isHeadquartersRead': 0, 'menuImageUrl': 'icon_shouyin.png', 'menuName': '收银台', 'menuNavigateUrl': '/loyout6', 'menuRemark': '', 'menuSort': 6, 'parentId': '1', 'userCreate': '453a21c19e6543478dabc90342507037', 'userModified': '23dbf529-225d-4af8-9687-40a55962a78a', 'childrens': [{'id': '882c26bfdf3b4c0e90a89e245e27fe43', 'gmtCreate': '2018-09-20 15:56:14', 'gmtModified': '2018-10-23 16:18:29', 'isDefaultMenu': 1, 'isHeadquartersRead': 0, 'menuImageUrl': '', 'menuName': '收银', 'menuNavigateUrl': '/layout/cashDesk/cashier', 'menuRemark': '', 'menuSort': 66, 'parentId': 'd818fa081e714d39a0b78b78b98a7f07', 'userCreate': '453a21c19e6543478dabc90342507037', 'userModified': '453a21c19e6543478dabc90342507037', 'childrens': None}, {'id': 'bd79ce10996b4bcd8339135a640eccaf', 'gmtCreate': '2018-09-20 15:57:44', 'gmtModified': '2018-10-23 16:18:21', 'isDefaultMenu': 1, 'isHeadquartersRead': 0, 'menuImageUrl': '', 'menuName': '开卡', 'menuNavigateUrl': '/layout/cashDesk/activateCard', 'menuRemark': '', 'menuSort': 65, 'parentId': 'd818fa081e714d39a0b78b78b98a7f07', 'userCreate': '453a21c19e6543478dabc90342507037', 'userModified': '453a21c19e6543478dabc90342507037', 'childrens': None}]}, {'id': '21d8edf7badc4569a38316fd914334e8', 'gmtCreate': '2018-09-06 14:22:36', 'gmtModified': '2018-09-06 14:22:36', 'isDefaultMenu': 0, 'isHeadquartersRead': 0, 'menuImageUrl': 'icon_quanxianguanli.png', 'menuName': '权限管理', 'menuNavigateUrl': '/loyout5', 'menuRemark': '', 'menuSort': 5, 'parentId': '1', 'userCreate': '1234', 'userModified': '1234', 'childrens': [{'id': '5a9df71c7b8e4f9182af7f92f483847e', 'gmtCreate': '2018-09-06 14:22:37', 'gmtModified': '2018-09-06 14:22:37', 'isDefaultMenu': 0, 'isHeadquartersRead': 0, 'menuImageUrl': '', 'menuName': '权限组设置', 'menuNavigateUrl': '/layout/system/groupConf', 'menuRemark': '', 'menuSort': 53, 'parentId': '21d8edf7badc4569a38316fd914334e8', 'userCreate': '1234', 'userModified': '1234', 'childrens': None}, {'id': 'ccd74f12bf734a1dacf5cbbf61494f42', 'gmtCreate': '2018-09-06 14:22:41', 'gmtModified': '2018-09-06 14:22:41', 'isDefaultMenu': 0, 'isHeadquartersRead': 0, 'menuImageUrl': '', 'menuName': '员工账号管理', 'menuNavigateUrl': '/layout/system/accountManage', 'menuRemark': '', 'menuSort': 52, 'parentId': '21d8edf7badc4569a38316fd914334e8', 'userCreate': '1234', 'userModified': '1234', 'childrens': None}, {'id': '72dd199bbc704b739c1976132258d2f3', 'gmtCreate': '2019-03-15 14:28:08', 'gmtModified': '2019-03-15 14:28:08', 'isDefaultMenu': 0, 'isHeadquartersRead': 0, 'menuImageUrl': '222', 'menuName': '密码设置', 'menuNavigateUrl': '/layout/system/setPassword', 'menuRemark': '', 'menuSort': 50, 'parentId': '21d8edf7badc4569a38316fd914334e8', 'userCreate': '23dbf529-225d-4af8-9687-40a55962a78a', 'userModified': '23dbf529-225d-4af8-9687-40a55962a78a', 'childrens': None}]}, {'id': '867cdd66489d4f4b91a9abf77f4a25c0', 'gmtCreate': '2018-09-06 14:22:39', 'gmtModified': '2018-09-06 14:22:39', 'isDefaultMenu': 0, 'isHeadquartersRead': 0, 'menuImageUrl': 'icon_mendianshezhi.png', 'menuName': '门店设置', 'menuNavigateUrl': '/loyout4', 'menuRemark': '', 'menuSort': 4, 'parentId': '1', 'userCreate': '1234', 'userModified': '1234', 'childrens': [{'id': '799b9f61606f44babed2e84016f40888', 'gmtCreate': '2019-01-18 16:05:41', 'gmtModified': '2019-01-18 16:05:41', 'isDefaultMenu': 0, 'isHeadquartersRead': 0, 'menuImageUrl': 'shopInfo', 'menuName': '门店基础信息', 'menuNavigateUrl': '/layout/shop/shopInfo', 'menuRemark': '', 'menuSort': 44, 'parentId': '867cdd66489d4f4b91a9abf77f4a25c0', 'userCreate': '23dbf529-225d-4af8-9687-40a55962a78a', 'userModified': '23dbf529-225d-4af8-9687-40a55962a78a', 'childrens': None}, {'id': 'f739889f887b4607bb4aa39af5414c71', 'gmtCreate': '2018-09-06 14:22:43', 'gmtModified': '2018-09-06 14:22:43', 'isDefaultMenu': 0, 'isHeadquartersRead': 0, 'menuImageUrl': '', 'menuName': '会员卡设置', 'menuNavigateUrl': '/layout/shop/clubcardset', 'menuRemark': '', 'menuSort': 43, 'parentId': '867cdd66489d4f4b91a9abf77f4a25c0', 'userCreate': '1234', 'userModified': '1234', 'childrens': None}, {'id': '43ffc396e6ce4ecdb466a00d7b1842ed', 'gmtCreate': '2018-09-06 14:22:36', 'gmtModified': '2018-09-06 14:22:36', 'isDefaultMenu': 0, 'isHeadquartersRead': 0, 'menuImageUrl': '', 'menuName': '客户来源设置', 'menuNavigateUrl': '/layout/shop/customeSource', 'menuRemark': '', 'menuSort': 42, 'parentId': '867cdd66489d4f4b91a9abf77f4a25c0', 'userCreate': '1234', 'userModified': '1234', 'childrens': None}, {'id': 'a2a42f7be6d74bc19a909c6cec44a368', 'gmtCreate': '2018-09-06 14:22:40', 'gmtModified': '2018-09-06 14:22:40', 'isDefaultMenu': 0, 'isHeadquartersRead': 0, 'menuImageUrl': '', 'menuName': '员工设置', 'menuNavigateUrl': '/layout/shop/staffSet', 'menuRemark': '', 'menuSort': 41, 'parentId': '867cdd66489d4f4b91a9abf77f4a25c0', 'userCreate': '1234', 'userModified': '1234', 'childrens': None}]}, {'id': 'f30d1677d92e4a898529bf6c7531890d', 'gmtCreate': '2018-09-06 14:23:01', 'gmtModified': '2018-09-06 14:23:01', 'isDefaultMenu': 1, 'isHeadquartersRead': 0, 'menuImageUrl': 'icon_chanpingshezhi.png', 'menuName': '产品设置', 'menuNavigateUrl': '/layout3', 'menuRemark': '', 'menuSort': 3, 'parentId': '1', 'userCreate': '1234', 'userModified': '1234', 'childrens': [{'id': 'ed393817d9a54874bb91cad524dfb17f', 'gmtCreate': '2018-09-06 14:22:59', 'gmtModified': '2018-09-06 14:22:59', 'isDefaultMenu': 1, 'isHeadquartersRead': 0, 'menuImageUrl': '', 'menuName': '产品列表', 'menuNavigateUrl': '/layout/shop/productlist', 'menuRemark': '', 'menuSort': 31, 'parentId': 'f30d1677d92e4a898529bf6c7531890d', 'userCreate': '1234', 'userModified': '1234', 'childrens': None}]}, {'id': '7221a47a327a42f9864854b7a381f0df', 'gmtCreate': '2018-09-06 14:22:54', 'gmtModified': '2018-09-06 14:22:54', 'isDefaultMenu': 1, 'isHeadquartersRead': 0, 'menuImageUrl': 'icon_xiangmushezhi.png', 'menuName': '项目设置', 'menuNavigateUrl': '/layout2', 'menuRemark': '', 'menuSort': 2, 'parentId': '1', 'userCreate': '1234', 'userModified': '1234', 'childrens': [{'id': 'c353ade88dcd48b9a7fcf86a298c7d05', 'gmtCreate': '2018-09-06 14:23:03', 'gmtModified': '2018-09-06 14:23:03', 'isDefaultMenu': 1, 'isHeadquartersRead': 0, 'menuImageUrl': '', 'menuName': '项目列表', 'menuNavigateUrl': '/layout/shop/projectlist', 'menuRemark': '', 'menuSort': 21, 'parentId': '7221a47a327a42f9864854b7a381f0df', 'userCreate': '1234', 'userModified': '1234', 'childrens': None}]}, {'id': '0b8deaf08ed849829970d22fe2ca69bb', 'gmtCreate': '2018-09-20 15:17:57', 'gmtModified': '2018-11-01 10:33:47', 'isDefaultMenu': 1, 'isHeadquartersRead': 0, 'menuImageUrl': 'icon_huiyuanleibiao.png', 'menuName': '会员管理', 'menuNavigateUrl': '/member', 'menuRemark': '', 'menuSort': 1, 'parentId': '1', 'userCreate': '1234', 'userModified': '23dbf529-225d-4af8-9687-40a55962a78a', 'childrens': [{'id': 'b9d6f11e4de5465986f5113a222f1af4', 'gmtCreate': '2018-09-25 17:44:36', 'gmtModified': '2018-10-29 14:52:25', 'isDefaultMenu': 1, 'isHeadquartersRead': 0, 'menuImageUrl': '/', 'menuName': '散客列表', 'menuNavigateUrl': '/layout/member/ndividualtraveler', 'menuRemark': '', 'menuSort': 99, 'parentId': '0b8deaf08ed849829970d22fe2ca69bb', 'userCreate': '1234', 'userModified': '1234', 'childrens': None}, {'id': '18221267c97e4ce39d126f8604e2d353', 'gmtCreate': '2018-09-21 09:19:42', 'gmtModified': '2018-10-29 14:52:23', 'isDefaultMenu': 1, 'isHeadquartersRead': 0, 'menuImageUrl': '123', 'menuName': '会员列表', 'menuNavigateUrl': '/layout/member/memberList', 'menuRemark': '', 'menuSort': 55, 'parentId': '0b8deaf08ed849829970d22fe2ca69bb', 'userCreate': '1234', 'userModified': '1234', 'childrens': None}, {'id': '8ba204848e86461f8c923be61fef2be5', 'gmtCreate': '2018-09-20 15:29:44', 'gmtModified': '2018-10-29 14:52:18', 'isDefaultMenu': 1, 'isHeadquartersRead': 0, 'menuImageUrl': '/', 'menuName': '会员卡列表', 'menuNavigateUrl': '/layout/member/memberCardList', 'menuRemark': '', 'menuSort': 55, 'parentId': '0b8deaf08ed849829970d22fe2ca69bb', 'userCreate': '1234', 'userModified': '1234', 'childrens': None}]}, {'id': '8a777568dcfe4d68a912ce8b2d8a2153', 'gmtCreate': '2018-09-06 14:23:06', 'gmtModified': '2018-09-06 14:23:06', 'isDefaultMenu': 1, 'isHeadquartersRead': 0, 'menuImageUrl': 'icon_liaochengtaocanshezhi.png', 'menuName': '疗程套餐设置', 'menuNavigateUrl': '/layout1', 'menuRemark': '', 'menuSort': 1, 'parentId': '1', 'userCreate': '1234', 'userModified': '1234', 'childrens': [{'id': '35729f5f0db14331a2f0779f99c5df62', 'gmtCreate': '2018-09-06 14:23:08', 'gmtModified': '2018-09-06 14:23:08', 'isDefaultMenu': 1, 'isHeadquartersRead': 0, 'menuImageUrl': '', 'menuName': '疗程套餐列表', 'menuNavigateUrl': '/layout/shop/treatmentlist', 'menuRemark': '', 'menuSort': 11, 'parentId': '8a777568dcfe4d68a912ce8b2d8a2153', 'userCreate': '1234', 'userModified': '1234', 'childrens': None}]}, {'id': '19fe722cf808460b856f5ab0e98c8aa3', 'gmtCreate': '2018-10-19 15:12:22', 'gmtModified': '2019-03-07 17:33:30', 'isDefaultMenu': 1, 'isHeadquartersRead': 0, 'menuImageUrl': 'icon_sankeliebiao.png', 'menuName': '营业记录', 'menuNavigateUrl': '/layout12', 'menuRemark': '', 'menuSort': 0, 'parentId': '1', 'userCreate': '453a21c19e6543478dabc90342507037', 'userModified': '23dbf529-225d-4af8-9687-40a55962a78a', 'childrens': [{'id': '2c136cf04dad44a5b1beb1c1aebb4848', 'gmtCreate': '2018-10-19 15:14:53', 'gmtModified': '2018-10-29 14:56:12', 'isDefaultMenu': 1, 'isHeadquartersRead': 0, 'menuImageUrl': '122', 'menuName': '水单列表', 'menuNavigateUrl': '/layout/data/bankReceiptList', 'menuRemark': '', 'menuSort': 12, 'parentId': '19fe722cf808460b856f5ab0e98c8aa3', 'userCreate': '453a21c19e6543478dabc90342507037', 'userModified': '453a21c19e6543478dabc90342507037', 'childrens': None}]}, {'id': '1e1bd940f43b4059a5b5b99bcf95a196', 'gmtCreate': '2019-03-15 14:25:35', 'gmtModified': '2019-03-15 14:25:35', 'isDefaultMenu': 0, 'isHeadquartersRead': 0, 'menuImageUrl': 'icon_sankeliebiao.png', 'menuName': '财务报表', 'menuNavigateUrl': 'layout', 'menuRemark': '', 'menuSort': 0, 'parentId': '1', 'userCreate': '23dbf529-225d-4af8-9687-40a55962a78a', 'userModified': '23dbf529-225d-4af8-9687-40a55962a78a', 'childrens': [{'id': '66fc38887ffa4910a4be0baf8c47f31d', 'gmtCreate': '2019-03-15 14:26:10', 'gmtModified': '2019-03-15 14:26:38', 'isDefaultMenu': 0, 'isHeadquartersRead': 0, 'menuImageUrl': 'ccc', 'menuName': '会员财务报表', 'menuNavigateUrl': '/layout/data/memberReport', 'menuRemark': '', 'menuSort': 5, 'parentId': '1e1bd940f43b4059a5b5b99bcf95a196', 'userCreate': '23dbf529-225d-4af8-9687-40a55962a78a', 'userModified': '23dbf529-225d-4af8-9687-40a55962a78a', 'childrens': None}, {'id': 'f52d9292457447dca310a4183e0c5ad2', 'gmtCreate': '2019-03-15 14:27:25', 'gmtModified': '2019-03-15 15:42:10', 'isDefaultMenu': 0, 'isHeadquartersRead': 0, 'menuImageUrl': '222', 'menuName': '会员卡财务报表', 'menuNavigateUrl': '/layout/data/memberCardReport', 'menuRemark': '', 'menuSort': 4, 'parentId': '1e1bd940f43b4059a5b5b99bcf95a196', 'userCreate': '23dbf529-225d-4af8-9687-40a55962a78a', 'userModified': '23dbf529-225d-4af8-9687-40a55962a78a', 'childrens': None}]}]}], 'systemPowerVOs': [{'powerGroupName': '全部', 'powers': [{'id': '137f4105fed745c6996cee087173883e', 'gmtCreate': '2018-08-22 11:33:41', 'gmtModified': '2018-12-20 17:21:54', 'isDeleted': 0, 'powerGroupName': '全部', 'powerName': '允许门店自主添加产品', 'powerRemark': '', 'powerTitle': '允许门店自主添加产品', 'userCreate': '1234', 'userModified': '1234'}, {'id': 'c9b1282b4b964e8f8636c27c77fe7c5c', 'gmtCreate': '2018-08-22 15:46:13', 'gmtModified': '2018-12-20 17:21:54', 'isDeleted': 0, 'powerGroupName': '全部', 'powerName': '允许门店自主添加项目', 'powerRemark': '', 'powerTitle': '允许门店自主添加项目', 'userCreate': '1234', 'userModified': '1234'}, {'id': 'cc24f6df31694cb8938cee482b01d988', 'gmtCreate': '2018-08-22 15:46:13', 'gmtModified': '2018-12-20 17:21:54', 'isDeleted': 0, 'powerGroupName': '全部', 'powerName': '允许门店自主添加疗程套餐', 'powerRemark': '', 'powerTitle': '允许门店自主添加疗程套餐', 'userCreate': '1234', 'userModified': '1234'}]}]}}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_api_3</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_3'>通过</button>
+    <div id='div_pt1_3' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_3' type="button"  class="btn btn-xs" data-toggle="collapse" data-target='#div_pt1_3'>通过</button>
+    <div id='div_pt1_3' class="collapse">
+    <pre>
+    
+pt1_3: 执行第3条用例:权限管理模块
+请求地址:http://meiye-gray-api.lvshou.me:7773/post/listUser
+请求参数:{"token":'a7f58c47-92ca-4d3a-904c-8e08a36afef5',"data":'{"keyword":"","isValid":"","page":1,"size":10}'}
+返回数据:{'status': 200, 'message': 'OK', 'data': {'page': 0, 'size': 10, 'data': [], 'totalCount': 0, 'totalPages': 0}}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_api_4</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_4'>通过</button>
+    <div id='div_pt1_4' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_4' type="button"  class="btn btn-xs" data-toggle="collapse" data-target='#div_pt1_4'>通过</button>
+    <div id='div_pt1_4' class="collapse">
+    <pre>
+    
+pt1_4: 执行第4条用例:权限管理模块
+请求地址:http://meiye-gray-api.lvshou.me:7773/post/listRole
+请求参数:{'token':'a7f58c47-92ca-4d3a-904c-8e08a36afef5','data':'{"page":1,"size":10}'}
+返回数据:{'status': 200, 'message': 'OK', 'data': {'page': 0, 'size': 10, 'data': [{'id': '3957b652a6214c0093f03826ee842e06', 'gmtCreate': '2019-01-23 16:45:48', 'gmtModified': '2019-01-24 17:32:38', 'isAllowUpdate': 0, 'isDeleted': 0, 'roleName': '默认权限', 'roleRemark': '', 'shopId': 'd90c7afd096e473e92bc3342bb6be43f', 'userCreate': '453a21c19e6543478dabc90342507037', 'userModified': '75ac1fd4f7cc427382e91e225f6681e1'}, {'id': '6f7194555c7d422d8a33b3f20e01ffe6', 'gmtCreate': '2019-03-27 18:09:27', 'gmtModified': '2019-03-27 18:09:27', 'isAllowUpdate': 1, 'isDeleted': 0, 'roleName': 'test18:09:20', 'roleRemark': '', 'shopId': 'd90c7afd096e473e92bc3342bb6be43f', 'userCreate': '75ac1fd4f7cc427382e91e225f6681e1', 'userModified': '75ac1fd4f7cc427382e91e225f6681e1'}, {'id': 'c792849260594d7e9eec428fa17a6db8', 'gmtCreate': '2019-02-26 09:49:49', 'gmtModified': '2019-02-26 09:49:49', 'isAllowUpdate': 1, 'isDeleted': 0, 'roleName': 'test09:50:00', 'roleRemark': '', 'shopId': 'd90c7afd096e473e92bc3342bb6be43f', 'userCreate': '75ac1fd4f7cc427382e91e225f6681e1', 'userModified': '75ac1fd4f7cc427382e91e225f6681e1'}], 'totalCount': 3, 'totalPages': 1}}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='total_row' class="text-center active">
+    <td>总计</td>
+    <td>4</td>
+    <td>3</td>
+    <td>1</td>
+    <td>0</td>
+    <td>通过率：75.00%</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+    <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-eject" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+    
+
+</body>
+</html>

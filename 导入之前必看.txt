@@ -1,0 +1,3 @@
+cmd 命令 去到这个项目文件的目录下
+pip install -r filename.txt
+批量安装模块
