@@ -44,10 +44,11 @@ class getExcel(object):
                     sub_data['url']=sheet.cell(i, 3).value
                     sub_data['method']=sheet.cell(i, 4).value
                     sub_data['code']=sheet.cell(i, 6).value
-                    if sheet.cell(i, 5).value.find('$token')!=-1:
-                        sub_data['data'] = sheet.cell(i, 5).value.replace('$token', token)
-                    else:
-                        sub_data['data'] = sheet.cell(i, 5).value#.replace('$token', token)
+                    sub_data['data'] = sheet.cell(i, 5).value
+                    # if sheet.cell(i, 5).value.find('$token')!=-1:
+                    #     sub_data['data'] = sheet.cell(i, 5).value.replace('$token', token)
+                    # else:
+                    #     sub_data['data'] = sheet.cell(i, 5).value#.replace('$token', token)
                     test_item.append(sub_data)
                 mylog.info("############添加测试数据成功############")
                 self.close_excel()
